@@ -23,7 +23,8 @@ public class Vigenere extends Sustitucion {
     String textoCifrado = "";
     pTexto = pTexto.toLowerCase();
     for(String palabra : pTexto.split(" ")) {
-      textoCifrado += sustituirPalabra(palabra, 1) + " ";
+      textoCifrado+=sustituirPalabra(palabra,Double.valueOf(clave)/10,Double.valueOf(clave)%10) +
+          " ";
     }
     return textoCifrado;
   }
@@ -36,7 +37,8 @@ public class Vigenere extends Sustitucion {
     String textoDescifrado = "";
     pTexto = pTexto.toLowerCase();
     for (String palabra : pTexto.split(" ")) {
-      textoDescifrado += sustituirPalabra(palabra, -1) + " ";
+      textoDescifrado+=sustituirPalabra(palabra,27-Double.valueOf(clave)/10,
+          26-Double.valueOf(clave)%10) + " ";
     }
     return textoDescifrado;
   }
@@ -49,15 +51,16 @@ public class Vigenere extends Sustitucion {
     return pTexto.matches("[a-z\\ ]*"); 
   }
   
-  private String sustituirPalabra(String pTexto, int pDesplazamiento) {
+  private String sustituirPalabra(String pTexto, double primerDesplazamiento,
+      double segundoDesplazamiento){
     String nuevoTexto = "";
     for (int i=0;i<pTexto.length();i+=2) {
       if(i+1>pTexto.length()) {
-        nuevoTexto += desplazarLetra(pTexto.charAt(i), pDesplazamiento*(Double.valueOf(clave)/10));
+        nuevoTexto += desplazarLetra(pTexto.charAt(i), primerDesplazamiento);
         break;
       }
-      nuevoTexto += desplazarLetra(pTexto.charAt(i), pDesplazamiento*(Double.valueOf(clave)/10));
-      nuevoTexto += desplazarLetra(pTexto.charAt(i+1), pDesplazamiento*(Double.valueOf(clave)%10));
+      nuevoTexto += desplazarLetra(pTexto.charAt(i), primerDesplazamiento);
+      nuevoTexto += desplazarLetra(pTexto.charAt(i+1), segundoDesplazamiento);
     }
     return nuevoTexto;
   }
