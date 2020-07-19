@@ -23,14 +23,7 @@ public class Vigenere extends Sustitucion {
     String textoCifrado = "";
     pTexto = pTexto.toLowerCase();
     for(String palabra : pTexto.split(" ")) {
-      for (int i=0;i<palabra.length();i++) {
-        if (i%2==0) {
-          textoCifrado += desplazarLetra(palabra.charAt(i), Double.valueOf(clave)/10);
-        }else {
-          textoCifrado += desplazarLetra(palabra.charAt(i), Double.valueOf(clave)%10);
-        }
-      }
-      textoCifrado += " ";
+      textoCifrado += sustituirPalabra(palabra, 1) + " ";
     }
     return textoCifrado;
   }
@@ -43,40 +36,40 @@ public class Vigenere extends Sustitucion {
     String textoDescifrado = "";
     pTexto = pTexto.toLowerCase();
     for (String palabra : pTexto.split(" ")) {
-      for (int i=0;i<palabra.length();i++) {
-        if (i%2==0) {
-          textoDescifrado += desplazarLetra(palabra.charAt(i), -Double.valueOf(clave)/10);
-        }else {
-          textoDescifrado += desplazarLetra(palabra.charAt(i), -Double.valueOf(clave)%10);
-        }
-      }
-      textoDescifrado += " ";
+      textoDescifrado += sustituirPalabra(palabra, -1) + " ";
     }
     return textoDescifrado;
   }
 
   @Override
   protected boolean validarMensaje(String pTexto) {
-    for (int i=0;i<pTexto.length();i++) {
-      if (!Character.isAlphabetic(pTexto.charAt(i)) 
-          && !Character.isWhitespace(pTexto.charAt(i))) {
-        return false;
-      }
+    if (pTexto.isEmpty()) {
+      return false;
     }
-    return true;
+    return pTexto.matches("[a-z\\ ]*"); 
   }
   
-  private String desplazarLetra(char c, double desplazamiento) {
-    String letra = "";
-    int asciiCaracterDesplazado = 0;
-    asciiCaracterDesplazado = c+ (int)desplazamiento;
-    if (asciiCaracterDesplazado>122) {
-      asciiCaracterDesplazado -= 26;
-    } else if (asciiCaracterDesplazado<97) {
-      asciiCaracterDesplazado += 26;
+  private String sustituirPalabra(String pTexto, int pDesplazamiento) {
+    String nuevoTexto = "";
+    for (int i=0;i<pTexto.length();i+=2) {
+      if(i+1>pTexto.length()) {
+        nuevoTexto += desplazarLetra(pTexto.charAt(i), pDesplazamiento*(Double.valueOf(clave)/10));
+        break;
+      }
+      nuevoTexto += desplazarLetra(pTexto.charAt(i), pDesplazamiento*(Double.valueOf(clave)/10));
+      nuevoTexto += desplazarLetra(pTexto.charAt(i+1), pDesplazamiento*(Double.valueOf(clave)%10));
     }
-    char caracterDesplazado = (char) asciiCaracterDesplazado;
-    return letra+caracterDesplazado;
+    return nuevoTexto;
+  }
+  
+  private String desplazarLetra(char pCaracter,double desplazamiento) {
+    int posicion = (int) (calcularDesplazamiento(caracteres.indexOf(pCaracter),
+        desplazamiento));
+    return String.valueOf(caracteres.charAt(posicion));
+  }
+  
+  private double calcularDesplazamiento(int pPosicion,double pDesplazamiento) {
+    return (pPosicion+pDesplazamiento)%26;
   }
 
 }

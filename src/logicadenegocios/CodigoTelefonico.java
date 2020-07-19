@@ -19,76 +19,83 @@ public class CodigoTelefonico extends Cifrado {
    */ 
   public CodigoTelefonico() {
     caracteres = new Hashtable<String,String>();
-    completarCaracteres('a', 21);
+    completarCaracteres();
   }
 
   @Override
   public String cifrar(String pTexto) {
-    if(validarMensaje(pTexto) || pTexto.isEmpty()){
+    if(validarMensaje(pTexto)){
       return "N/A";
     }
     String nuevoTexto = "";
-    Map<String, String> mapInversed = caracteres.entrySet().stream().
-        collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
+    pTexto = pTexto.toLowerCase();
     for(String i : pTexto.split("")) {
-      nuevoTexto += mapInversed.get(i.toLowerCase()) + " ";         
+      nuevoTexto += caracteres.get(i) + " ";         
     }
     return nuevoTexto;
   }
 
   @Override
   public String descifrar(String pTexto) {
-    if(validarMensaje(pTexto) || pTexto.isEmpty()){
+    if(validarMensaje(pTexto)){
       return "N/A";
     }
+    Map<String, String> mapInversed = caracteres.entrySet().stream().
+        collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
     String nuevoTexto = "";
     for(String i : pTexto.split(" ")) {
-      nuevoTexto += caracteres.get(i);         
+      nuevoTexto += mapInversed.get(i);         
     }
     return nuevoTexto;
   }
 
   @Override
   protected boolean validarMensaje(String pTexto) {
-    return validarMensajeCodigoTelefonico(pTexto) && validarMensajeTexto(pTexto);
+    return !validarMensajeCodigoTelefonico(pTexto) & !validarMensajeTexto(pTexto);
   }
   
   private boolean validarMensajeCodigoTelefonico(String pTexto) {
-    try {
-      for(String i : pTexto.replace("*", "").replace("  ", " ").split(" ")) {
-        Integer.parseInt(i);
-        if(caracteres.get(i).equals(null)){
-          return true;
-        }
-      }
+    if(pTexto.isEmpty()) {
       return false;
-    } catch (NumberFormatException nfe){
-      return true;
     }
+    return pTexto.matches("[0-9\\*\\ ]*");
   }
   
   private boolean validarMensajeTexto(String pTexto) {
-    for (int i = 0; i < pTexto.length(); i++) {
-      if(Character.isDigit(pTexto.charAt(i))) {
-        return true;
-      }
+    if(pTexto.isEmpty()) {
+      return false;
     }
-    return false;
+    return pTexto.matches("[a-z\\ ]*"); 
   }
   
-  private void completarCaracteres(char pLetra, int pPosicion) {
-    caracteres.put(String.valueOf(pPosicion),String.valueOf(pLetra));
-    pLetra=(char) (pLetra+1);
-    if (pLetra > 'z') {
-      caracteres.put("*"," ");
-      return;
-    } else if (pPosicion==73 || pPosicion ==93) {
-      completarCaracteres(pLetra, pPosicion+1);
-    } else if (pPosicion%10 >= 3 ) {
-      completarCaracteres(pLetra, pPosicion-pPosicion%10+11);
-    }else {
-      completarCaracteres(pLetra, pPosicion+1);
-    }
+  private void completarCaracteres() {
+    caracteres.put("a", "21");
+    caracteres.put("b", "22");
+    caracteres.put("c", "23");
+    caracteres.put("d", "31");
+    caracteres.put("e", "32");
+    caracteres.put("f", "33");
+    caracteres.put("g", "41");
+    caracteres.put("h", "42");
+    caracteres.put("i", "43");
+    caracteres.put("j", "51");
+    caracteres.put("k", "52");
+    caracteres.put("l", "53");
+    caracteres.put("m", "61");
+    caracteres.put("n", "62");
+    caracteres.put("o", "63");
+    caracteres.put("p", "71");
+    caracteres.put("q", "72");
+    caracteres.put("r", "73");
+    caracteres.put("s", "74");
+    caracteres.put("t", "81");
+    caracteres.put("u", "82");
+    caracteres.put("v", "83");
+    caracteres.put("w", "91");
+    caracteres.put("x", "92");
+    caracteres.put("y", "93");
+    caracteres.put("z", "94");
+    caracteres.put(" ", "*");
   }
 
 }

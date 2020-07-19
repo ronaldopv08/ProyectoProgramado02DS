@@ -52,28 +52,15 @@ public class CodigoBinario extends Cifrado {
     if (pTexto.isEmpty()) {
       return false;
     }
-    for (int i=0;i<pTexto.length();i++) {
-      if(!Character.isAlphabetic(pTexto.charAt(i)) 
-          && !Character.isWhitespace(pTexto.charAt(i))) {
-        return false;
-      }
-    }
-    return true;
+    return pTexto.matches("[a-z\\ ]*"); 
   }
+  
   
   private boolean validarMensajeCifrado(String pTexto) {
     if (pTexto.isEmpty()) {
       return false;
     }
-    for (int i=0;i<pTexto.length();i++) {
-      if(!Character.isDigit(pTexto.charAt(i)) 
-          && !Character.isWhitespace(pTexto.charAt(i))) {
-        if (pTexto.charAt(i)!='*') {
-          return false;
-        }
-      }
-    }
-    return true;
+    return pTexto.matches("[0-9\\*\\ ]*");
   }
   
   private Hashtable<String, String> completarCaracteres(){

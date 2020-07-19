@@ -16,56 +16,49 @@ public class Llave extends Sustitucion {
 
   @Override
   public String cifrar(String pTexto) {
-    if(validarMensaje(pTexto) || pTexto.isEmpty()){
+    if(validarMensaje(pTexto)){
       return "N/A";
     }
     String nuevoTexto = "";
     for(String i : pTexto.split(" ")) {
-      int posicionClave = 0;
-      for(int j=0; j<i.length();j++) {
-        if (posicionClave == clave.length()) {
-          posicionClave = 0;
-        }
-        int posicion = caracteres.indexOf(Character.toString(clave.charAt(posicionClave))) + 
-            caracteres.indexOf(Character.toString(i.charAt(j))) + 1;
-        nuevoTexto += obtenerCaracter(posicion); 
-        posicionClave++;
-      }
-      nuevoTexto += " ";
+      nuevoTexto += sustituirPalabra(i, 1) +" ";
     }
     return nuevoTexto;
   }
 
   @Override
   public String descifrar(String pTexto) {
-    if(validarMensaje(pTexto) || pTexto.isEmpty()){
+    if(validarMensaje(pTexto)){
       return "N/A";
     }
     String nuevoTexto = "";
     for(String i : pTexto.split(" ")) {
-      int posicionClave = 0;
-      for(int j=0; j<i.length();j++) {
-        if (posicionClave == clave.length()) {
-          posicionClave = 0;
-        }
-        int posicion = caracteres.indexOf(Character.toString(i.charAt(j))) -
-            caracteres.indexOf(Character.toString(clave.charAt(posicionClave))) - 1;
-        nuevoTexto += obtenerCaracter(posicion);  
-        posicionClave++;
-      }
-      nuevoTexto += " ";
+      nuevoTexto += sustituirPalabra(i, -1) +" ";
     }
     return nuevoTexto;
   }
 
   @Override
   protected boolean validarMensaje(String pTexto) {
-    for (int i = 0; i < pTexto.length(); i++) {
-      if(!Character.isAlphabetic(pTexto.charAt(i)) && pTexto.charAt(i) != ' ') {
-        return true;
-      }
+    if(pTexto.isEmpty()) {
+      return true;
     }
-    return false;
+    return !pTexto.matches("[a-z\\ ]*");
+  }
+  
+  private String sustituirPalabra(String pTexto, int pPosicion) {
+    int posicionClave = 0;
+    String nuevoTexto = "";
+    for(int j=0; j<pTexto.length();j++) {
+      if (posicionClave == clave.length()) {
+        posicionClave = 0;
+      }
+      int posicion = pPosicion*(caracteres.indexOf(Character.toString(clave.charAt(posicionClave)))) + 
+          caracteres.indexOf(Character.toString(pTexto.charAt(j))) + pPosicion;
+      nuevoTexto += obtenerCaracter(posicion); 
+      posicionClave++;
+    }
+    return nuevoTexto;
   }
 
   private String obtenerCaracter(int pPosicion) {

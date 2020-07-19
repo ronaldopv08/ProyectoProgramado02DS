@@ -24,7 +24,7 @@ public class Cesar extends Sustitucion {
     String textoCifrado = "";
     pTexto = pTexto.toLowerCase();
     for(int i=0;i<pTexto.length();i++) {
-      textoCifrado += desplazarLetra(pTexto.charAt(i),"derecha");
+      textoCifrado += desplazarLetra(pTexto.charAt(i),Double.valueOf(clave));
     }
     return textoCifrado;
   }
@@ -37,42 +37,29 @@ public class Cesar extends Sustitucion {
     String textoDescifrado = "";
     pTexto = pTexto.toLowerCase();
     for(int i=0;i<pTexto.length();i++) {
-      textoDescifrado += desplazarLetra(pTexto.charAt(i),"izquierda");
+      textoDescifrado += desplazarLetra(pTexto.charAt(i),26-Double.valueOf(clave));
     }
     return textoDescifrado;
   }
 
   @Override
   protected boolean validarMensaje(String pTexto) {
-    for (int i=0;i<pTexto.length();i++) {
-      if (esCaracterValido(pTexto.charAt(i))) {
-        return false;
-      }
+    if (pTexto.isEmpty()) {
+      return false;
     }
-    return true;
+    return pTexto.matches("[a-z\\ ]*"); 
   }
   
-  private boolean esCaracterValido(char pCaracter) {
-    return !Character.isAlphabetic(pCaracter) && !Character.isWhitespace(pCaracter);
-  }
-  
-  private String desplazarLetra(char pCaracter,String direccion) {
+  private String desplazarLetra(char pCaracter,double desplazamiento) {
     if (Character.isWhitespace(pCaracter)) {
       return " ";
     }
-    String letra = "";
-    double asciiCaracterDesplazado = 0;
-    if (direccion=="derecha") {
-      asciiCaracterDesplazado = pCaracter+Double.valueOf(clave);
-    } else if (direccion=="izquierda") {
-      asciiCaracterDesplazado = pCaracter-Double.valueOf(clave);
-    } if (asciiCaracterDesplazado>122) {
-      asciiCaracterDesplazado -= 26;
-    } else if (asciiCaracterDesplazado<97) {
-      asciiCaracterDesplazado += 26;
-    }
-    char caracterDesplazado = (char) asciiCaracterDesplazado;
-    return letra+caracterDesplazado;
+    int posicion = (int) calcularDesplazamiento(caracteres.indexOf(pCaracter),desplazamiento);
+    return String.valueOf(caracteres.charAt(posicion));
+  }
+  
+  private double calcularDesplazamiento(int pPosicion,double pDesplazamiento) {
+    return (pPosicion+pDesplazamiento)%26;
   }
 
 }

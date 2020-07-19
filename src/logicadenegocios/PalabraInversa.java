@@ -18,7 +18,11 @@ public class PalabraInversa extends Cifrado {
     if(validarMensaje(pTexto)) {
       return "N/A";
     }
-    return invertirTexto(pTexto);
+    String nuevaPalabra = "";
+    for(String i : pTexto.split(" ")) {
+      nuevaPalabra += invertirPalabra(i) + " ";
+    }
+    return nuevaPalabra;
   }
 
   @Override
@@ -26,25 +30,16 @@ public class PalabraInversa extends Cifrado {
     if(validarMensaje(pTexto)) {
       return "N/A";
     }
-    return invertirTexto(pTexto);
+    String nuevaPalabra = "";
+    for(String i : pTexto.split(" ")) {
+      nuevaPalabra += invertirPalabra(i) + " ";
+    }
+    return nuevaPalabra;
   }
 
   @Override
   protected boolean validarMensaje(String pTexto) {
     return pTexto.isEmpty();
-  }
-  
-  private String invertirTexto(String pTexto) {
-    String textoInvertido = "";
-    String palabra = "";
-    for(int i=0; i<pTexto.length(); i++) {
-      palabra += pTexto.charAt(i);
-      if( (pTexto.charAt(i) == " ".charAt(0)) || i==pTexto.length()-1 ) {
-        textoInvertido += invertirPalabra(palabra).replace(" ", "") + " ";
-        palabra = "";
-      }
-    }
-    return textoInvertido;
   }
   
   private String invertirPalabra(String pPalabra) {
