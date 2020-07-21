@@ -11,11 +11,12 @@ import com.ibm.watson.tone_analyzer.v3.model.ToneScore;
 
 public class ServicioAnalizadorTono {
   
-  private Authenticator authenticator = new IamAuthenticator("ZnTrY_s40qWLnF046hypKaRfHHfVOAArT5JM3QHyxCGx");
-  private ToneAnalyzer service = new ToneAnalyzer("2017-09-21", authenticator);
+  private String apiKey = "ZnTrY_s40qWLnF046hypKaRfHHfVOAArT5JM3QHyxCGx";
+  private ToneAnalyzer analizador;
 
   public ServicioAnalizadorTono() {
-    
+    Authenticator autenticador = new IamAuthenticator(apiKey);
+    analizador = new ToneAnalyzer("2017-09-21", autenticador);
   }
   
   public boolean verificarEnfado(String texto) {
@@ -29,14 +30,14 @@ public class ServicioAnalizadorTono {
   }
   
   private  ArrayList<String> ejecutarAnalisis(String texto) {
-    ToneOptions toneOptions = new ToneOptions.Builder().text(texto).build();
-      ToneAnalysis tone = service.tone(toneOptions).execute().getResult();
-      List<ToneScore> tonos = tone.getDocumentTone().getTones();
-      ArrayList<String> sentimientos = new ArrayList<>();
-      for (ToneScore tono : tonos) {
-        sentimientos.add(tono.getToneName());
-      }
-      return sentimientos;
+    ToneOptions opcionesTono = new ToneOptions.Builder().text(texto).build();
+    ToneAnalysis respuesta = analizador.tone(opcionesTono).execute().getResult();
+    List<ToneScore> tonos = respuesta.getDocumentTone().getTones();
+    ArrayList<String> sentimientos = new ArrayList<>();
+    for (ToneScore tono : tonos) {
+      sentimientos.add(tono.getToneName());
+    }
+    return sentimientos;
   }
   
 }
