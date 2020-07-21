@@ -15,6 +15,10 @@ import logicadenegocios.Cifrable;
 import logicadenegocios.Cifrado;
 import logicadenegocios.CifradoFactory;
 import logicadenegocios.Sustitucion;
+import logicadeservicios.ServicioAnalizadorTono;
+import logicadeservicios.ServicioAnalizadorTonoSingleton;
+import logicadeservicios.ServicioTraductor;
+import logicadeservicios.ServicioTraductorSingleton;
 import logicadeservicios.ServicioWatson;
 import logicadeservicios.ServicioWatsonSingleton;
 
@@ -30,6 +34,8 @@ public class ControladorPrincipal {
   private CifradoFactory cifradoFactory;
   private Cifrable cifrado;
   private ServicioWatson asistente;
+  private ServicioTraductor traductor;
+  private ServicioAnalizadorTono analizadorTono;
 
   /**
    * Método constructor de la clase, sin parámetros
@@ -37,6 +43,8 @@ public class ControladorPrincipal {
   public ControladorPrincipal(){
     cifradoFactory = new CifradoFactory();
     asistente = ServicioWatsonSingleton.getInstance();
+    traductor = ServicioTraductorSingleton.getInstance();
+    analizadorTono = ServicioAnalizadorTonoSingleton.getInstance();
   }
 
   /**
@@ -115,10 +123,12 @@ public class ControladorPrincipal {
 
   private String ejecutarCifrado(String pOpcion, String pTexto) {
     if (pOpcion.equals("codificacion")) {
+      if(validarTexto(pTexto)) {
+        return "Rechazado";
+      }
       return cifrado.cifrar(pTexto.replaceAll("\"", ""));
-    }else {
-      return cifrado.descifrar(pTexto.replaceAll("\"", ""));
     }
+    return cifrado.descifrar(pTexto.replaceAll("\"", ""));
   }
 
   private String extraerClave(String pTexto) {
@@ -136,4 +146,10 @@ public class ControladorPrincipal {
     }
     return pTexto;
   }
+  
+  private boolean validarTexto(String pTexto) {
+    String texto = traductor.ejecutarTraduccion(pTexto);
+    return analizadorTono.verificarEnfado(texto);
+  }
+  
 }
