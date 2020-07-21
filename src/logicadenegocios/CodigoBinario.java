@@ -52,7 +52,13 @@ public class CodigoBinario extends Cifrado {
     if (pTexto.isEmpty()) {
       return false;
     }
-    return pTexto.matches("[a-z\\ ]*"); 
+    for (int i=0;i<pTexto.length();i++) {
+      if(!Character.isAlphabetic(pTexto.charAt(i)) 
+          && !Character.isWhitespace(pTexto.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
   }
   
   
@@ -60,7 +66,15 @@ public class CodigoBinario extends Cifrado {
     if (pTexto.isEmpty()) {
       return false;
     }
-    return pTexto.matches("[0-9\\*\\ ]*");
+    for (int i=0;i<pTexto.length();i++) {
+      if(!Character.isDigit(pTexto.charAt(i)) 
+          && !Character.isWhitespace(pTexto.charAt(i))) {
+        if (pTexto.charAt(i)!='*') {
+          return false;
+        }
+      }
+    }
+    return true;
   }
   
   private Hashtable<String, String> completarCaracteres(){
