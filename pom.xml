@@ -35,6 +35,16 @@
 			  <artifactId>tone-analyzer</artifactId>
 			  <version>8.5.0</version>
 		</dependency>
+			  <dependency>
+		  <groupId>com.ibm.watson</groupId>
+		  <artifactId>tone-analyzer</artifactId>
+		  <version>8.5.0</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.ibm.watson</groupId>
+		  <artifactId>language-translator</artifactId>
+		  <version>8.5.0</version>
+	  </dependency>
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
