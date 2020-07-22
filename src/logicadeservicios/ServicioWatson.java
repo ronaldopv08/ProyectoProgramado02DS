@@ -14,6 +14,7 @@ import com.ibm.watson.developer_cloud.service.security.IamOptions;
  * @author Gabriel Cortés Mena
  * @author Ronaldo Picado Vega
  */
+@SuppressWarnings("deprecation")
 public class ServicioWatson {
   private final String apiKey="OQk1PFhYjmF3yjMD9BwQ_C4uvSlvLxgW2SMrlHrcb5cf";
   private final String assistantURL="https://api.us-south.assistant.watson.cloud.ibm.com/instances/4e626345-c978-49e6-a460-cc741c600dcb";
