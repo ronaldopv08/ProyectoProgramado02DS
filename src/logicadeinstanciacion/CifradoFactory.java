@@ -1,4 +1,6 @@
-package logicadenegocios;
+package logicadeinstanciacion;
+
+import logicadenegocios.Cifrado;
 
 /**
  * Clase simple diseñada para instanciar objetos de tipo Cifrado

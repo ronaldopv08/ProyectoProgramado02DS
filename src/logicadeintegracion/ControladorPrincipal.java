@@ -11,16 +11,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import logicadeinstanciacion.CifradoFactory;
+import logicadeinstanciacion.ServicioAnalizadorTonoSingleton;
+import logicadeinstanciacion.ServicioTraductorSingleton;
+import logicadeinstanciacion.ServicioWatsonSingleton;
 import logicadenegocios.Cifrable;
 import logicadenegocios.Cifrado;
-import logicadenegocios.CifradoFactory;
 import logicadenegocios.Sustitucion;
 import logicadeservicios.ServicioAnalizadorTono;
-import logicadeservicios.ServicioAnalizadorTonoSingleton;
 import logicadeservicios.ServicioTraductor;
-import logicadeservicios.ServicioTraductorSingleton;
 import logicadeservicios.ServicioWatson;
-import logicadeservicios.ServicioWatsonSingleton;
 
 /**
  * Clase diseñada para controlar el acceso a las funcionalidades de la aplicacion

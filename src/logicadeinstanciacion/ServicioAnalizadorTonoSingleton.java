@@ -1,4 +1,6 @@
-package logicadeservicios;
+package logicadeinstanciacion;
+
+import logicadeservicios.ServicioAnalizadorTono;
 
 /**
  * Clase encargada de encapsular la lógica de instanciación de la clase ServioAnalizadorTono.

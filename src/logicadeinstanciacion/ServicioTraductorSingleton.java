@@ -1,4 +1,6 @@
-package logicadeservicios;
+package logicadeinstanciacion;
+
+import logicadeservicios.ServicioTraductor;
 
 /**
  * Clase encargada de encapsular la lógica de instanciación de la clase ServicioTraductor.
