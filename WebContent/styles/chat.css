@@ -1,0 +1,99 @@
+:root {
+    --main-color: #232d36;
+    --secondary-color: #32D0BE;
+    --main-text-color: #10838F;
+    --secondary-text-color: #18CADE;
+    --send-message-form: #4298A2;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Segoe UI;
+    font-weight: 200;
+    color: #000014; 
+}
+
+#root {
+    height: 100%;
+}
+
+.app {
+    height: calc(100% - 100px); 
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    color: var(--secondary-color);
+    background: var(--main-color);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    text-align: center;
+}
+
+.message {
+    margin: 15px 0;
+    color: #18CADE;
+}
+
+.message div:nth-child(1) {
+    font-size: 14px;
+    font-weight: bold;
+    color: #C1D7E6;
+    opacity: 0.9;
+    margin-bottom: 6px;
+}
+.message div:nth-child(2) {
+    background: #202e36;
+    color: white;
+    display: inline;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.message-list {
+    box-sizing: border-box;
+    padding: 0 0 0 6px;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    scrollbar-color: yellow #800080;
+    background: #101d25;
+}
+
+.send-message-form {
+    background: var(--send-message-form);
+    display: flex;
+    box-sizing: border-box;
+    font-family: Segoe UI;
+    height: 60px;
+    font-size: 9px;
+    color: var(--secondary-color);
+}
+
+.send-message-form input {
+    width: 100%;
+    padding: 15px 10px;
+    border: none;
+    margin: 0;
+    font-family: Segoe UI;
+    background: #2c373d;
+    font-size: 15px;
+    color: white;
+}
+
+.send-message-form input:focus {
+    outline-width: 0;
+    color: white;
+}
+
+.send-message-form input::placeholder {
+    color: #6b747b;
+}
