@@ -1,5 +1,6 @@
 package logicadeservicios;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import logicadeinstanciacion.BitacoraFactory;
@@ -28,13 +29,15 @@ public class ServicioBitacora {
     }
   }
   
-  public String consultarRegistros(String tipoBitacora, String pFiltroConsulta) {
+  public Object consultarRegistros(String tipoBitacora, String pFiltroConsulta) 
+      throws NoSuchMethodException, SecurityException, IllegalAccessException, 
+      IllegalArgumentException, InvocationTargetException {
     for (Bitacora i: bitacoras) {
       if(i.getClass().getName().equals(tipoBitacora)) {
         return i.ejecutarConsulta(pFiltroConsulta);
       }
     }
-    return "";
+    return null;
   }
 
 }
