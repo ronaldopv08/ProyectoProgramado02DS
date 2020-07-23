@@ -26,7 +26,7 @@ public class CodigoBinario extends Cifrado {
       return "N/A";
     }
     String textoCifrado = "";
-    pTexto.toLowerCase();
+    pTexto = pTexto.toLowerCase();
     for (String letra : pTexto.split("")) {
       textoCifrado += caracteres.get(letra)+" ";
     }
@@ -52,13 +52,7 @@ public class CodigoBinario extends Cifrado {
     if (pTexto.isEmpty()) {
       return false;
     }
-    for (int i=0;i<pTexto.length();i++) {
-      if(!Character.isAlphabetic(pTexto.charAt(i)) 
-          && !Character.isWhitespace(pTexto.charAt(i))) {
-        return false;
-      }
-    }
-    return true;
+    return pTexto.matches("[a-z\\ ]*"); 
   }
   
   
@@ -66,15 +60,7 @@ public class CodigoBinario extends Cifrado {
     if (pTexto.isEmpty()) {
       return false;
     }
-    for (int i=0;i<pTexto.length();i++) {
-      if(!Character.isDigit(pTexto.charAt(i)) 
-          && !Character.isWhitespace(pTexto.charAt(i))) {
-        if (pTexto.charAt(i)!='*') {
-          return false;
-        }
-      }
-    }
-    return true;
+    return pTexto.matches("[0-9\\*\\ ]*");
   }
   
   private Hashtable<String, String> completarCaracteres(){
