@@ -1,11 +1,33 @@
 package logicaderegistro;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
+
 public class BitacoraCSV extends Bitacora {
+  
+  public BitacoraCSV() {
+    this.rutaArchivo =  new File("src/bitacoras/bitacora.csv").getAbsolutePath();
+  }
 
   @Override
   public void registrarActividad(String tipoActividad) {
-    // TODO Auto-generated method stub
-    
+    try {
+      CSVReader csvReader = new CSVReader(new FileReader(rutaArchivo.toString()));
+      List<String[]> datos = csvReader.readAll();
+      String [] actividad = {obtenerFecha(), obtenerHora(), tipoActividad};
+      datos.add(actividad);
+      CSVWriter writer = new CSVWriter(new FileWriter(rutaArchivo.toString()));
+      writer.writeAll(datos);
+      writer.close();
+    } catch (IOException | CsvException e) {
+      e.printStackTrace();
+    }   
   }
 
   @Override
@@ -31,5 +53,6 @@ public class BitacoraCSV extends Bitacora {
     // TODO Auto-generated method stub
     return null;
   }
+  
 
 }

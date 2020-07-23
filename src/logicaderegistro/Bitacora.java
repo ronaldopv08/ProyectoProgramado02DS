@@ -2,6 +2,9 @@ package logicaderegistro;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public abstract class Bitacora {
   
@@ -22,5 +25,20 @@ public abstract class Bitacora {
     return resultado;
   }
   
+  protected String obtenerHora() {
+    Date date = new Date();
+    SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss");
+    SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
+    hora.setTimeZone(TimeZone.getTimeZone("America/Costa_Rica"));
+    fecha.setTimeZone(TimeZone.getTimeZone("America/Costa_Rica"));
+    return hora.format(date);
+  }
+  
+  protected String obtenerFecha() {
+    Date date = new Date();
+    SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
+    fecha.setTimeZone(TimeZone.getTimeZone("America/Costa_Rica"));
+    return fecha.format(date);
+  }  
   
 }
