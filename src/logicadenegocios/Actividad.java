@@ -6,11 +6,22 @@ import java.util.TimeZone;
 
 public class Actividad {
   
-  private String fecha;
-  private String hora;
-  private String tipoCifrado;
-  private String accion;
+  public String fecha;
+  public String hora;
+  public String tipoCifrado;
+  public String accion;
   
+  public Actividad() {
+    
+  }
+  
+  public Actividad(String fecha, String hora, String tipoCifrado, String accion) {
+    this.fecha = fecha;
+    this.hora = hora;
+    this.tipoCifrado = tipoCifrado;
+    this.accion = accion;
+  }
+
   public Actividad(String pTipoCifrado, String pAccion) {
     setAccion(pAccion);
     setTipoCifrado(pTipoCifrado);
@@ -28,6 +39,10 @@ public class Actividad {
     fecha.setTimeZone(TimeZone.getTimeZone("America/Costa_Rica"));
     this.fecha = fecha.format(date);
   }
+  
+  public void setFecha(String pFecha) {
+    this.fecha = pFecha;
+  }
 
   public String getHora() {
     return hora;
@@ -38,6 +53,10 @@ public class Actividad {
     SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss");
     hora.setTimeZone(TimeZone.getTimeZone("America/Costa_Rica"));
     this.hora = hora.format(date);
+  }
+  
+  public void setHora(String pHora) {
+    this.hora = pHora;
   }
 
   public String getTipoCifrado() {
@@ -56,4 +75,11 @@ public class Actividad {
     this.accion = accion;
   }
 
+  @Override
+  public String toString() {
+    return "Actividad [fecha=" + fecha + ", hora=" + hora + ", tipoCifrado=" + tipoCifrado
+        + ", accion=" + accion + "]";
+  }
+
+  
 }
