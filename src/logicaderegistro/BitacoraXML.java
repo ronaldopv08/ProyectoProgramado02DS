@@ -22,14 +22,15 @@ public class BitacoraXML extends Bitacora {
   }
   
   @Override
-  public void registrarActividad(Actividad actividad) {
+  public void registrarActividad(Actividad pActividad) {
     try {
       File archivoXML = new File(rutaArchivo);
       ObjectMapper mapper = new XmlMapper();
       InputStream inputStream = new FileInputStream(archivoXML);
       TypeReference<List<Actividad>> typeReference = new TypeReference<List<Actividad>>() {};
+      actividades.clear();
       actividades = mapper.readValue(inputStream, typeReference);
-      actividades.add(actividad);
+      actividades.add(pActividad);
       mapper.writeValue(archivoXML, actividades);
       inputStream.close();
     } catch (Exception e) {

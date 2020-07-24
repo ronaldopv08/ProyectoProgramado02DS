@@ -18,11 +18,11 @@ public class Cesar extends Sustitucion {
 
   @Override
   public String cifrar(String pTexto) {
+    pTexto = pTexto.toLowerCase();
     if(!validarMensaje(pTexto)) {
       return "N/A";
     }
     String textoCifrado = "";
-    pTexto = pTexto.toLowerCase();
     for(int i=0;i<pTexto.length();i++) {
       textoCifrado += desplazarLetra(pTexto.charAt(i),Double.valueOf(clave));
     }
@@ -31,11 +31,11 @@ public class Cesar extends Sustitucion {
 
   @Override
   public String descifrar(String pTexto) {
+    pTexto = pTexto.toLowerCase();
     if(!validarMensaje(pTexto)) {
       return "N/A";
     }
     String textoDescifrado = "";
-    pTexto = pTexto.toLowerCase();
     for(int i=0;i<pTexto.length();i++) {
       textoDescifrado += desplazarLetra(pTexto.charAt(i),26-Double.valueOf(clave));
     }
