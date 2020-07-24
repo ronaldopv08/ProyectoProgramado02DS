@@ -22,11 +22,11 @@ public class CodigoBinario extends Cifrado {
   
   @Override
   public String cifrar(String pTexto) {
+    pTexto = pTexto.toLowerCase();
     if(!validarMensaje(pTexto)) {
       return "N/A";
     }
     String textoCifrado = "";
-    pTexto = pTexto.toLowerCase();
     for (String letra : pTexto.split("")) {
       textoCifrado += caracteres.get(letra)+" ";
     }

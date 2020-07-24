@@ -16,6 +16,7 @@ public class Llave extends Sustitucion {
 
   @Override
   public String cifrar(String pTexto) {
+    pTexto = pTexto.toLowerCase();
     if(validarMensaje(pTexto)){
       return "N/A";
     }
@@ -28,6 +29,7 @@ public class Llave extends Sustitucion {
 
   @Override
   public String descifrar(String pTexto) {
+    pTexto = pTexto.toLowerCase();
     if(validarMensaje(pTexto)){
       return "N/A";
     }

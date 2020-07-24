@@ -16,7 +16,7 @@ public class ServicioBitacora {
     bitacoraFactory = new BitacoraFactory();
     bitacoras = new ArrayList<Bitacora>();
     agregarBitacora("BitacoraCSV");
-    //agregarBitacora("BitacoraTramaPlana");
+    agregarBitacora("BitacoraTramaPlana");
     agregarBitacora("BitacoraXML");
   }
   

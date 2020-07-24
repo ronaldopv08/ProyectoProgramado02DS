@@ -17,11 +17,11 @@ public class Vigenere extends Sustitucion {
 
   @Override
   public String cifrar(String pTexto) {
+    pTexto = pTexto.toLowerCase();
     if(!validarMensaje(pTexto)) {
       return "N/A";
     }
     String textoCifrado = "";
-    pTexto = pTexto.toLowerCase();
     for(String palabra : pTexto.split(" ")) {
       textoCifrado+=sustituirPalabra(palabra,Double.valueOf(clave)/10,Double.valueOf(clave)%10) +
           " ";
@@ -31,11 +31,11 @@ public class Vigenere extends Sustitucion {
 
   @Override
   public String descifrar(String pTexto) {
+    pTexto = pTexto.toLowerCase();
     if(!validarMensaje(pTexto)) {
       return "N/A";
     }
     String textoDescifrado = "";
-    pTexto = pTexto.toLowerCase();
     for (String palabra : pTexto.split(" ")) {
       textoDescifrado+=sustituirPalabra(palabra,27-Double.valueOf(clave)/10,
           26-Double.valueOf(clave)%10) + " ";

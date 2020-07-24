@@ -24,11 +24,11 @@ public class CodigoTelefonico extends Cifrado {
 
   @Override
   public String cifrar(String pTexto) {
+    pTexto = pTexto.toLowerCase();
     if(validarMensaje(pTexto)){
       return "N/A";
     }
     String nuevoTexto = "";
-    pTexto = pTexto.toLowerCase();
     for(String i : pTexto.split("")) {
       nuevoTexto += caracteres.get(i) + " ";         
     }
