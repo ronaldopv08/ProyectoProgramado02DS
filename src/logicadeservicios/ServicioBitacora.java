@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import logicadeinstanciacion.BitacoraFactory;
+import logicadenegocios.Actividad;
 import logicaderegistro.Bitacora;
 
 public class ServicioBitacora {
@@ -12,20 +13,17 @@ public class ServicioBitacora {
   private BitacoraFactory bitacoraFactory;
   
   public ServicioBitacora() {
+    bitacoraFactory = new BitacoraFactory();
     bitacoras = new ArrayList<Bitacora>();
+    agregarBitacora("BitacoraCSV");
+    //agregarBitacora("BitacoraTramaPlana");
+    agregarBitacora("BitacoraXML");
   }
   
-  public void agregarBitacoras(String pTipoBitacora) {
-    try {
-      bitacoras.add(bitacoraFactory.crearBitacora(pTipoBitacora));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-  
-  public void registarActividad(String pActividad) {
+  public void registarActividad(List<String> pDatos) {
+    Actividad nuevaActividad = new Actividad(pDatos.get(1), pDatos.get(2));
     for (Bitacora i: bitacoras) {
-      i.registrarActividad(pActividad);
+      i.registrarActividad(nuevaActividad);
     }
   }
   
@@ -38,6 +36,14 @@ public class ServicioBitacora {
       }
     }
     return null;
+  }
+  
+  private void agregarBitacora(String pTipoBitacora) {
+    try {
+      bitacoras.add(bitacoraFactory.crearBitacora(pTipoBitacora));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
 }

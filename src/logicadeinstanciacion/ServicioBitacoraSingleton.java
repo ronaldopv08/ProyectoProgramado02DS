@@ -1,6 +1,6 @@
 package logicadeinstanciacion;
 
-import logicadeservicios.ServicioTraductor;
+import logicadeservicios.ServicioBitacora;
 
 /**
  * Clase encargada de encapsular la lógica de instanciación de la clase ServicioTraductor.
@@ -8,19 +8,20 @@ import logicadeservicios.ServicioTraductor;
  * @author Ronaldo Picado Vega
  *
  */
-public class ServicioTraductorSingleton {
+public class ServicioBitacoraSingleton {
   
-  private static ServicioTraductor instance = new ServicioTraductor();
+  private static ServicioBitacora instance = new ServicioBitacora();
   
-  private ServicioTraductorSingleton() {
+  private ServicioBitacoraSingleton() {
   }
  
  /**
   * Método para obtener la instancia de la clase ServicioTraductor
   * @return Objeto de tipo ServicioTraductor
   */
-  public static ServicioTraductor getInstance() {
+  public static ServicioBitacora getInstance() {
     return instance;
   }
  
+
 }

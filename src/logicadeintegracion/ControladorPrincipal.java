@@ -13,12 +13,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import logicadeinstanciacion.CifradoFactory;
 import logicadeinstanciacion.ServicioAnalizadorTonoSingleton;
+import logicadeinstanciacion.ServicioBitacoraSingleton;
 import logicadeinstanciacion.ServicioTraductorSingleton;
 import logicadeinstanciacion.ServicioWatsonSingleton;
 import logicadenegocios.Cifrable;
 import logicadenegocios.Cifrado;
 import logicadenegocios.Sustitucion;
 import logicadeservicios.ServicioAnalizadorTono;
+import logicadeservicios.ServicioBitacora;
 import logicadeservicios.ServicioTraductor;
 import logicadeservicios.ServicioWatson;
 
@@ -36,6 +38,7 @@ public class ControladorPrincipal {
   private ServicioWatson asistente;
   private ServicioTraductor traductor;
   private ServicioAnalizadorTono analizadorTono;
+  private ServicioBitacora bitacora;
 
   /**
    * Método constructor de la clase, sin parámetros
@@ -45,6 +48,7 @@ public class ControladorPrincipal {
     asistente = ServicioWatsonSingleton.getInstance();
     traductor = ServicioTraductorSingleton.getInstance();
     analizadorTono = ServicioAnalizadorTonoSingleton.getInstance();
+    bitacora = ServicioBitacoraSingleton.getInstance();
   }
 
   /**
@@ -66,12 +70,13 @@ public class ControladorPrincipal {
     String clave = String.valueOf(asistente.obtenerVariableContexto("clave"));
     
     List<String> datos = new ArrayList<>();
+    datos.add(texto);
     datos.add(metodo);
     datos.add(opcion);
-    datos.add(texto);
     
     if(validarDatos(datos)) {
-      String respuesta = obtenerRespuesta(clave, texto, metodo, opcion);
+      datos.add(clave);
+      String respuesta = obtenerRespuesta(datos);
       asistente.enviarContexto(conversationCtx, "respuesta", respuesta, conversationMsg);
     }
     return Response.status(Status.OK).entity(asistente.retornarConversacion().toString()).build();
@@ -86,11 +91,11 @@ public class ControladorPrincipal {
     return true;
   }
 
-  private String obtenerRespuesta(String clave, String texto, String metodo, String opcion) {
-    texto = extraerTexto(texto);
-    cifrado = solicitarCifrado(metodo);
-    if(!clave.equals("null")) {
-      clave = extraerClave(clave);
+  private String obtenerRespuesta(List<String> pDatos) {
+    String texto = extraerTexto(pDatos.get(0));
+    cifrado = solicitarCifrado(pDatos.get(1));
+    if(!pDatos.get(3).equals("null")) {
+      String clave = extraerClave(pDatos.get(3));
       Method method;
       try {
         method = Sustitucion.class.getDeclaredMethod("setClave", String.class);
@@ -100,7 +105,8 @@ public class ControladorPrincipal {
         e.printStackTrace();
       }
     }
-    return ejecutarCifrado(opcion, texto);
+    pDatos.set(0, texto);
+    return ejecutarCifrado(pDatos);
   }
 
   private String obtenerSaludo() {
@@ -121,14 +127,16 @@ public class ControladorPrincipal {
     }
   }
 
-  private String ejecutarCifrado(String pOpcion, String pTexto) {
-    if (pOpcion.equals("codificacion")) {
-      if(validarTexto(pTexto)) {
+  private String ejecutarCifrado(List<String> pDatos) {
+    if (pDatos.get(2).equals("codificacion")) {
+      if(validarTexto(pDatos.get(0))) {
         return "Rechazado";
       }
-      return cifrado.cifrar(pTexto.replaceAll("\"", ""));
+      registrarActividad(pDatos);
+      return cifrado.cifrar(pDatos.get(0).replaceAll("\"", ""));
     }
-    return cifrado.descifrar(pTexto.replaceAll("\"", ""));
+    registrarActividad(pDatos);
+    return cifrado.descifrar(pDatos.get(0).replaceAll("\"", ""));
   }
 
   private String extraerClave(String pTexto) {
@@ -150,6 +158,10 @@ public class ControladorPrincipal {
   private boolean validarTexto(String pTexto) {
     String texto = traductor.ejecutarTraduccion(pTexto);
     return analizadorTono.verificarEnfado(texto);
+  }
+  
+  private void registrarActividad(List<String> pDatos) {
+    bitacora.registarActividad(pDatos);
   }
   
 }

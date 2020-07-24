@@ -1,12 +1,8 @@
 package logicaderegistro;
 
-public class BitacoraTramaPlana extends Bitacora {
+import logicadenegocios.Actividad;
 
-  @Override
-  public void registrarActividad(String tipoActividad) {
-    // TODO Auto-generated method stub
-    
-  }
+public class BitacoraTramaPlana extends Bitacora {
 
   @Override
   protected String consularTodosRegistros() {
@@ -30,6 +26,12 @@ public class BitacoraTramaPlana extends Bitacora {
   protected String consultarAccionesHoy() {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  @Override
+  public void registrarActividad(Actividad pActividad) {
+    // TODO Auto-generated method stub
+    
   }
 
 }

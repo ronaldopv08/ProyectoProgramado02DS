@@ -8,26 +8,29 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
+import logicadenegocios.Actividad;
 
 public class BitacoraCSV extends Bitacora {
-  
+
   public BitacoraCSV() {
-    this.rutaArchivo =  new File("src/bitacoras/bitacora.csv").getAbsolutePath();
+    this.rutaArchivo = new File("src/bitacoras/bitacora.csv").getAbsolutePath();
   }
 
+
   @Override
-  public void registrarActividad(String tipoActividad) {
+  public void registrarActividad(Actividad pActividad) {
     try {
       CSVReader csvReader = new CSVReader(new FileReader(rutaArchivo.toString()));
       List<String[]> datos = csvReader.readAll();
-      String [] actividad = {obtenerFecha(), obtenerHora(), tipoActividad};
+      String[] actividad = {pActividad.getFecha(), pActividad.getHora(),
+          pActividad.getTipoCifrado(), pActividad.getAccion()};
       datos.add(actividad);
       CSVWriter writer = new CSVWriter(new FileWriter(rutaArchivo.toString()));
       writer.writeAll(datos);
       writer.close();
     } catch (IOException | CsvException e) {
       e.printStackTrace();
-    }   
+    }
   }
 
   @Override
@@ -53,6 +56,5 @@ public class BitacoraCSV extends Bitacora {
     // TODO Auto-generated method stub
     return null;
   }
-  
 
 }
