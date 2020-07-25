@@ -9,16 +9,19 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import logicadeinstanciacion.ServicioAlmacenamientoRemotoSingleton;
 import logicadenegocios.Actividad;
+import logicadeservicios.ServicioAlmacenamientoRemoto;
 
 public class BitacoraXML extends Bitacora {
   
   @JacksonXmlElementWrapper(useWrapping = false)
-  private List<Actividad> actividades;  
+  private List<Actividad> actividades;
   
   public BitacoraXML() {
+    servicio = ServicioAlmacenamientoRemotoSingleton.getInstance();
     this.actividades = new ArrayList<Actividad>();
-    this.rutaArchivo = new File("src/bitacoras/bitacora.xml").getAbsolutePath();
+    this.rutaArchivo = servicio.descargarArchivo("bitacora.xml").getAbsolutePath();
   }
   
   @Override
@@ -33,6 +36,7 @@ public class BitacoraXML extends Bitacora {
       actividades.add(pActividad);
       mapper.writeValue(archivoXML, actividades);
       inputStream.close();
+      servicio.subirArchivo(archivoXML);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
