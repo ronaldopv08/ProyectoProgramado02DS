@@ -8,26 +8,32 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
+import logicadeinstanciacion.ServicioAlmacenamientoRemotoSingleton;
 import logicadenegocios.Actividad;
+import logicadeservicios.ServicioAlmacenamientoRemoto;
 
 public class BitacoraCSV extends Bitacora {
 
   public BitacoraCSV() {
-    this.rutaArchivo = new File("src/bitacoras/bitacora.csv").getAbsolutePath();
+    servicio = ServicioAlmacenamientoRemotoSingleton.getInstance();
+    this.rutaArchivo = servicio.descargarArchivo("bitacora.csv").getAbsolutePath();
   }
 
 
   @Override
   public void registrarActividad(Actividad pActividad) {
     try {
-      CSVReader csvReader = new CSVReader(new FileReader(rutaArchivo.toString()));
+      CSVReader csvReader = new CSVReader(new FileReader(rutaArchivo));
       List<String[]> datos = csvReader.readAll();
       String[] actividad = {pActividad.getFecha(), pActividad.getHora(),
           pActividad.getTipoCifrado(), pActividad.getAccion()};
       datos.add(actividad);
-      CSVWriter writer = new CSVWriter(new FileWriter(rutaArchivo.toString()));
+      CSVWriter writer = new CSVWriter(new FileWriter(rutaArchivo));
       writer.writeAll(datos);
       writer.close();
+      csvReader.close();
+      File archivo = new File(rutaArchivo);
+      servicio.subirArchivo(archivo);
     } catch (IOException | CsvException e) {
       e.printStackTrace();
     }

@@ -1,0 +1,6 @@
+---
+applications:
+- name: PP02
+  memory: 256M
+  host: proyecto01vodkajuniors
+  domain: mybluemix.net

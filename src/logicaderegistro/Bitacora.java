@@ -3,10 +3,12 @@ package logicaderegistro;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import logicadenegocios.Actividad;
+import logicadeservicios.ServicioAlmacenamientoRemoto;
 
 public abstract class Bitacora {
   
   protected String rutaArchivo;
+  protected ServicioAlmacenamientoRemoto servicio;
   
   public abstract void registrarActividad(Actividad pActividad);
   protected abstract String consularTodosRegistros();
