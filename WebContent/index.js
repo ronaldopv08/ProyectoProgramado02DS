@@ -19,9 +19,8 @@ class App extends React.Component {
 			})
 
 			var ctxStr = JSON.stringify(this.state.ctx);
-		//hola
 		fetch(`http://localhost:9080/ProyectoProgramado02DS/chatbot/chatservice/?conversationMsg=${encodeURIComponent(text)}&conversationCtx=${encodeURIComponent(ctxStr)}`)
-		//fetch(`https://proyecto01vodkajuniors.mybluemix.net/chatbot/chatservice/?conversationMsg=${encodeURIComponent(text)}&conversationCtx=${encodeURIComponent(ctxStr)}`)
+		// fetch(`https://proyecto01vodkajuniors.mybluemix.net/chatbot/chatservice/?conversationMsg=${encodeURIComponent(text)}&conversationCtx=${encodeURIComponent(ctxStr)}`)
 		.then((response) => {
 			console.log(response);
 			return response.json();
@@ -98,6 +97,7 @@ class SendMessageForm extends React.Component {
 				value={this.state.message}
 				placeholder="Escriba el mensaje y presione la tecla ENTER."
 					type="text" />
+						<a href="chatbot/iniciosesionadministrador" class="button">Modulo Administracion</a>
 						</form>
 		)
 	}
