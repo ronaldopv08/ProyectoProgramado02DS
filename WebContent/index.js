@@ -98,7 +98,7 @@ class SendMessageForm extends React.Component {
 				value={this.state.message}
 				placeholder="Escriba el mensaje y presione la tecla ENTER."
 					type="text" />
-						<a href="chatbot/iniciosesionadministrador" class="button">Modulo Administracion</a>
+						<a href="chatbot/iniciosesionadministrador" class="btn btn-info btn-sm" >Modulo Administracion</a>
 						</form>
 		)
 	}
