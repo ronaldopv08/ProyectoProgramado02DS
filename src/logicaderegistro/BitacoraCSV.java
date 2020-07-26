@@ -50,9 +50,8 @@ public class BitacoraCSV extends Bitacora {
         for(String j: i) {
           consulta += j +",";
         }
-         consulta += "<br><br/>";
+         consulta = consulta.substring(0, consulta.length() - 1) + "<br><br/>";
       }
-      System.out.println(consulta);
       return consulta;
     } catch (IOException | CsvException e) {
       // TODO Auto-generated catch block
