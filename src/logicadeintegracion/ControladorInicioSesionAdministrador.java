@@ -1,6 +1,8 @@
 package logicadeintegracion;
 
+import java.io.File;
 import java.io.IOException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -10,43 +12,30 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 
 @Path("/iniciosesionadministrador")
 public class ControladorInicioSesionAdministrador {
 
   private final String usuario = "admin";
   private final String contrasena = "admin";
+  @Context
+  private ServletContext servletContext;
 
   @GET
   @Produces(MediaType.TEXT_HTML)
-  public String sayHtmlHello() {
-    return "<!DOCTYPE html>\r\n" + "<html>\r\n" + "  <head>\r\n"
-        + "    <meta charset=\"UTF-8\">\r\n" + "    <title>Inicio Sesion Administrador</title>\r\n"
-        + "    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/"
-        + "css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiF"
-        + "eWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">\r\n"
-        + "  </head>\r\n" + "  \r\n" + "  <body>\r\n" + "    <div class=\"row\">\r\n"
-        + "      <div class=\"container col-lg-3\">\r\n" + "        <div class=\"form-group\">\r\n"
-        + "          <h1>Inicio Sesion</h1>\r\n" + "        </div>\r\n"
-        + "        <form:form method=\"post\">\r\n" + "          \r\n"
-        + "          <form:errors path=\"*\" element=\"div\" cssClass=\"alert alert-danger\"/>\r\n"
-        + "            \r\n"
-        + "          <form method=\"post\" action=\"../chatbot/iniciosesionadministrador\" >  \r\n"
-        + "            <div class=\"form-group\">\r\n"
-        + "              <form:label path=\"usuario\">Nombre de usuario:</form:label>\r\n"
-        + "         <input type=\"text\" id=\"usuario\" name=\"usuario\" class=\"form-control\" "
-        + "required />\r\n"
-        + "            </div>\r\n" + "         \r\n" + "            <div class=\"form-group\">\r\n"
-        + "              <form:label path=\"contrasena\">Contraseña:</form:label>\r\n"
-        + "              <input id=\"contrasena\" name=\"contrasena\" type=\"password\" class=\"fo"
-        + "rm-control\"  required/>\r\n"
-        + "            </div>\r\n" + "              \r\n"
-        + "              <div class=\"form-group\">\r\n"
-        + "                <input type=\"submit\" value=\"Iniciar Sesion\" class=\"btn btn-primary"
-        + " btn-block\"/>\r\n"
-        + "              </div>\r\n" + "            </form>\r\n" + "        </form:form>\r\n"
-        + "      </div>\r\n" + "\r\n" + "    </div>\r\n" + "        \r\n" + "\r\n" + "  </body>\r\n"
-        + "</html>";
+  public String sayHtmlHello() {   
+    String base = servletContext.getRealPath("/WEB-INF/inicioSesionAdministrador.html");
+    try {
+      File file = new File(base);
+      String content = Files.toString(file,Charsets.UTF_8);
+      return content;
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return null;
+    }
   }
 
   @POST

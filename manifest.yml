@@ -1,6 +1,7 @@
 ---
 applications:
-- name: PP02
+- name: pruebita02ds
   memory: 256M
-  host: proyecto01vodkajuniors
+  host: pruebita02ds
   domain: mybluemix.net
+  buildpack: liberty-for-java

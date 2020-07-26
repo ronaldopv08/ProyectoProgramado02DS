@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Inicio Sesion Administrador</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+  
+  <body>
+    <div class="row">
+      <div class="container col-lg-3">
+        <div class="form-group">
+          <h1>Inicio Sesion</h1>
+        </div>
+        <form:form method="post">            
+          <form method="post" action="../chatbot/iniciosesionadministrador" >  
+            <div class="form-group">
+              <form:label path="usuario">Nombre de usuario:</form:label>
+              <input type="text" id="usuario" name="usuario" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <form:label path="contrasena">Contraseña:</form:label>
+              <input id="contrasena" name="contrasena" type="password" class="form-control"  required/>
+            </div> 
+              <div class="form-group">
+              <input type="submit" value="Iniciar Sesion" class="btn btn-primary btn-block"/>
+            </div>
+          </form>
+        </form:form>
+      </div>
+    </div>   
+  </body>
+
+</html>

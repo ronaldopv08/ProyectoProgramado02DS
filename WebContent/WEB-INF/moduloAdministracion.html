@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modulo Administracion</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+    <body>
+    <div class="row" >
+    <div class="col-md-4 mx-auto">
+        <div class="card">
+            <div class="card-header">
+               <h1>Modulo Administracion</h1> 
+            </div>
+            <div class="card-body">
+              <form:form method="post">
+        <form method="post" action="../chatbot/moduloadministracion/consultarregistros" >
+                    <div class="form-group">
+            <label path="tipoBitacora">Tipo Bitacora</label>
+                        <select name="tipobitacora" id="tipobitacora">
+                <option value="BitacoraCSV">CSV</option>
+                <option value="BitacoraXML">XML</option>
+                <option value="BitacoraTramaPlana">Trama Plana</option>
+            </select>
+                    </div>
+                    <div class="form-group">
+            <label path="filtroConsulta">Filtro de Consulta</label>
+                        <select name="filtroconsulta" id="filtroconsulta">
+                <option value="consultarTodosRegistros">Todos los Registros</option>
+                <option value="consultarCodificaciones">Registros de Codificacion</option>
+                <option value="consultarDecodificaciones">Registros de Decodificacion</option>
+                <option value="consultarAccionesHoy">Registros de Hoy</option>
+            </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Consultar Bitacora
+                        </button>
+                    </div>
+          </form>
+                </form:form>
+              
+            </div>
+        </div>
+    </div>
+    </div>
+
+  </body>
+</html>
