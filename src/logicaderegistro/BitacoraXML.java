@@ -3,24 +3,22 @@ package logicaderegistro;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import logicadeinstanciacion.ServicioAlmacenamientoRemotoSingleton;
 import logicadenegocios.Actividad;
-import logicadeservicios.ServicioAlmacenamientoRemoto;
+import logicadenegocios.ListaActividadesXML;
 
 public class BitacoraXML extends Bitacora {
   
-  @JacksonXmlElementWrapper(useWrapping = false)
-  private List<Actividad> actividades;
+  //@JacksonXmlElementWrapper(useWrapping = false)
+  private ListaActividadesXML listaActividades;
   
   public BitacoraXML() {
     servicio = ServicioAlmacenamientoRemotoSingleton.getInstance();
-    this.actividades = new ArrayList<Actividad>();
+    listaActividades = new ListaActividadesXML();
     this.rutaArchivo = servicio.descargarArchivo("bitacora.xml").getAbsolutePath();
   }
   
@@ -30,11 +28,10 @@ public class BitacoraXML extends Bitacora {
       File archivoXML = new File(rutaArchivo);
       ObjectMapper mapper = new XmlMapper();
       InputStream inputStream = new FileInputStream(archivoXML);
-      TypeReference<List<Actividad>> typeReference = new TypeReference<List<Actividad>>() {};
-      actividades.clear();
-      actividades = mapper.readValue(inputStream, typeReference);
-      actividades.add(pActividad);
-      mapper.writeValue(archivoXML, actividades);
+      TypeReference<ListaActividadesXML> typeReference = new TypeReference<ListaActividadesXML>() {};
+      listaActividades = mapper.readValue(inputStream, typeReference);
+      listaActividades.agregarActividad(pActividad);
+      mapper.writeValue(archivoXML, listaActividades);
       inputStream.close();
       servicio.subirArchivo(archivoXML);
     } catch (Exception e) {

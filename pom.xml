@@ -79,6 +79,11 @@
     		<version>2.5</version>
     		<scope>provided</scope>
 		</dependency>
+		<dependency>
+    		<groupId>org.codehaus.woodstox</groupId>
+    		<artifactId>woodstox-core-asl</artifactId>
+    		<version>4.1.4</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
