@@ -2,26 +2,35 @@ package logicaderegistro;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+import java.util.TimeZone;
+import com.opencsv.CSVReader;
 import logicadeinstanciacion.ServicioAlmacenamientoRemotoSingleton;
 import logicadenegocios.Actividad;
 
 public class BitacoraTramaPlana extends Bitacora {
-  
+
   public BitacoraTramaPlana() {
     servicio = ServicioAlmacenamientoRemotoSingleton.getInstance();
     this.rutaArchivo = servicio.descargarArchivo("bitacora.txt").getAbsolutePath();
   }
-  
+
   @Override
   public void registrarActividad(Actividad pActividad) {
     try {
       File file = new File(rutaArchivo);
       Writer output = new BufferedWriter(new FileWriter(file, true));
-      String nuevaActividad = "\n" + pActividad.getFecha() + "\t" + pActividad.hora + "\t" + 
-          pActividad.getTipoCifrado() + "\t" + pActividad.getAccion();
+      String nuevaActividad = "\n" + pActividad.getFecha() + "\t" + pActividad.hora + "\t"
+          + pActividad.getTipoCifrado() + "\t" + pActividad.getAccion();
       output.write(nuevaActividad);
       output.close();
       servicio.subirArchivo(file);
@@ -34,26 +43,83 @@ public class BitacoraTramaPlana extends Bitacora {
 
   @Override
   protected String consultarTodosRegistros() {
-    // TODO Auto-generated method stub
-    return null;
+    String consulta = "";
+    List<String> datos = consultarRegistros();
+    consulta = aplicarFormatoHTML(datos);
+    return consulta;
   }
 
   @Override
-  protected String consultarCodifcaciones() {
-    // TODO Auto-generated method stub
-    return null;
+  protected String consultarCodificaciones() {
+    String consulta = "";
+    List<String> datos = consultarRegistros();
+    List<String> datosFiltrados = new ArrayList<String>();
+    for(String i: datos) {
+      if(i.split("\t")[3].equals("codificacion")) {
+        datosFiltrados.add(i);
+      }
+    }
+    consulta = aplicarFormatoHTML(datosFiltrados);
+    return consulta;
   }
 
   @Override
   protected String consultarDecodificaciones() {
-    // TODO Auto-generated method stub
-    return null;
+    String consulta = "";
+    List<String> datos = consultarRegistros();
+    List<String> datosFiltrados = new ArrayList<String>();
+    for(String i: datos) {
+      if(i.contains("decodificacion")) {
+        datosFiltrados.add(i);
+      }
+    }
+    consulta = aplicarFormatoHTML(datosFiltrados);
+    return consulta;
   }
 
   @Override
   protected String consultarAccionesHoy() {
-    // TODO Auto-generated method stub
-    return null;
+    String consulta = "";
+    List<String> datos = consultarRegistros();
+    List<String> datosFiltrados = new ArrayList<String>();
+    for(String i: datos) {
+      if(validarFecha(i)) {
+        datosFiltrados.add(i);
+      }
+    }
+    consulta = aplicarFormatoHTML(datosFiltrados);
+    return consulta;
+  }
+
+  private String aplicarFormatoHTML(List<String> pDatos) {
+    String consulta = "";
+    for (String i : pDatos) {
+      consulta += i + "<br><br/>";
+    }
+    return consulta;
+  }
+
+  private List<String> consultarRegistros() {
+    try {
+      File file = new File(rutaArchivo);
+      Scanner myReader = new Scanner(file);
+      List<String> datos = new ArrayList<String>();
+      while (myReader.hasNextLine()) {
+        String data = myReader.nextLine();
+        datos.add(data);
+      }
+      myReader.close();
+      return datos;
+    } catch (Exception e) {
+      return null;
+    }
+  }
+  
+  private boolean validarFecha(String pFecha) {
+    Date date = new Date();
+    SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
+    fecha.setTimeZone(TimeZone.getTimeZone("America/Costa_Rica"));
+    return pFecha.contains(fecha.format(date));
   }
 
 }

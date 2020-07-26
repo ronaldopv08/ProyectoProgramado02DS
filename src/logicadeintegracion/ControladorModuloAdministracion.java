@@ -55,7 +55,7 @@ public class ControladorModuloAdministracion {
         "                    </div>\r\n" + 
         "                    <div class=\"form-group\">\r\n" + 
         "                        <button type=\"submit\" class=\"btn btn-primary btn-block\">\r\n" + 
-        "                            Registrar Estudiante\r\n" + 
+        "                            Consultar Bitacora\r\n" + 
         "                        </button>\r\n" + 
         "                    </div>\r\n" + 
         "          </form>\r\n" + 
