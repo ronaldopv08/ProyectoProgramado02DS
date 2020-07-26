@@ -28,7 +28,7 @@ public class ControladorInicioSesionAdministrador {
         + "  </head>\r\n" + "  \r\n" + "  <body>\r\n" + "    <div class=\"row\">\r\n"
         + "      <div class=\"container col-lg-3\">\r\n" + "        <div class=\"form-group\">\r\n"
         + "          <h1>Inicio Sesion</h1>\r\n" + "        </div>\r\n"
-        + "        <form:form method=\"post\" commandName=\"usuario\">\r\n" + "          \r\n"
+        + "        <form:form method=\"post\">\r\n" + "          \r\n"
         + "          <form:errors path=\"*\" element=\"div\" cssClass=\"alert alert-danger\"/>\r\n"
         + "            \r\n"
         + "          <form method=\"post\" action=\"../chatbot/iniciosesionadministrador\" >  \r\n"

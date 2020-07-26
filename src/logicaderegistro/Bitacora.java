@@ -11,17 +11,18 @@ public abstract class Bitacora {
   protected ServicioAlmacenamientoRemoto servicio;
   
   public abstract void registrarActividad(Actividad pActividad);
-  protected abstract String consularTodosRegistros();
+  protected abstract String consultarTodosRegistros();
   protected abstract String consultarCodifcaciones();
   protected abstract String consultarDecodificaciones();
   protected abstract String consultarAccionesHoy();
   
-  public Object ejecutarConsulta(String filtroConsulta) throws 
+  public String ejecutarConsulta(String filtroConsulta) throws 
     NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
-    Method metodo = this.getClass().getMethod(filtroConsulta, new Class[0]);
+    System.out.println(this.getClass().getDeclaredMethods()[0]);
+    Method metodo = this.getClass().getDeclaredMethod(filtroConsulta);
     metodo.setAccessible(true);
-    Object resultado = metodo.invoke(this, new Object[0]);
+    String resultado = (String) metodo.invoke(this);
     return resultado;
   }
   

@@ -1,6 +1,7 @@
 package logicaderegistro;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,9 +41,24 @@ public class BitacoraCSV extends Bitacora {
   }
 
   @Override
-  protected String consularTodosRegistros() {
-    // TODO Auto-generated method stub
-    return null;
+  protected String consultarTodosRegistros() {
+    String consulta = "";
+    try {
+      CSVReader csvReader = new CSVReader(new FileReader(rutaArchivo));
+      List<String[]> datos = csvReader.readAll();
+      for (String[] i : datos) {
+        for(String j: i) {
+          consulta += j +",";
+        }
+         consulta += "<br><br/>";
+      }
+      System.out.println(consulta);
+      return consulta;
+    } catch (IOException | CsvException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return consulta;
+    }
   }
 
   @Override

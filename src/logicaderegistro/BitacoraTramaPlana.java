@@ -33,7 +33,7 @@ public class BitacoraTramaPlana extends Bitacora {
   }
 
   @Override
-  protected String consularTodosRegistros() {
+  protected String consultarTodosRegistros() {
     // TODO Auto-generated method stub
     return null;
   }

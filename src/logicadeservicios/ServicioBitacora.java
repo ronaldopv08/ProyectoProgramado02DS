@@ -27,11 +27,11 @@ public class ServicioBitacora {
     }
   }
   
-  public Object consultarRegistros(String tipoBitacora, String pFiltroConsulta) 
+  public String consultarRegistros(String tipoBitacora, String pFiltroConsulta) 
       throws NoSuchMethodException, SecurityException, IllegalAccessException, 
       IllegalArgumentException, InvocationTargetException {
     for (Bitacora i: bitacoras) {
-      if(i.getClass().getName().equals(tipoBitacora)) {
+      if(i.getClass().getSimpleName().equals(tipoBitacora)) {
         return i.ejecutarConsulta(pFiltroConsulta);
       }
     }

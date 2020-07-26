@@ -44,7 +44,7 @@ public class BitacoraXML extends Bitacora {
   }
 
   @Override
-  protected String consularTodosRegistros() {
+  protected String consultarTodosRegistros() {
     return null;
   }
 
