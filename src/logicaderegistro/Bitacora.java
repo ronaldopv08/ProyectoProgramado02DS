@@ -12,14 +12,13 @@ public abstract class Bitacora {
   
   public abstract void registrarActividad(Actividad pActividad);
   protected abstract String consultarTodosRegistros();
-  protected abstract String consultarCodifcaciones();
+  protected abstract String consultarCodificaciones();
   protected abstract String consultarDecodificaciones();
   protected abstract String consultarAccionesHoy();
   
   public String ejecutarConsulta(String filtroConsulta) throws 
     NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
       InvocationTargetException {
-    System.out.println(this.getClass().getDeclaredMethods()[0]);
     Method metodo = this.getClass().getDeclaredMethod(filtroConsulta);
     metodo.setAccessible(true);
     String resultado = (String) metodo.invoke(this);

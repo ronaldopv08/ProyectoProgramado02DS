@@ -2,9 +2,15 @@ package logicaderegistro;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
+import java.util.TimeZone;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -45,11 +51,14 @@ public class BitacoraXML extends Bitacora {
 
   @Override
   protected String consultarTodosRegistros() {
-    return null;
+    String consulta = "";
+    List<Actividad> datos = consultarRegistros();
+    consulta = aplicarFormatoHTML(datos);
+    return consulta;
   }
 
   @Override
-  protected String consultarCodifcaciones() {
+  protected String consultarCodificaciones() {
     // TODO Auto-generated method stub
     return null;
   }
@@ -64,6 +73,38 @@ public class BitacoraXML extends Bitacora {
   protected String consultarAccionesHoy() {
     // TODO Auto-generated method stub
     return null;
+  }
+  
+  private String aplicarFormatoHTML(List<Actividad> pDatos) {
+    String consulta = "";
+    for (Actividad i : pDatos) {
+      consulta += i + "<br><br/>";
+    }
+    return consulta;
+  }
+
+  private List<Actividad> consultarRegistros() {
+    try {
+      File archivoXML = new File(rutaArchivo);
+      ObjectMapper mapper = new XmlMapper();
+      InputStream inputStream = new FileInputStream(archivoXML);
+      TypeReference<List<Actividad>> typeReference = new TypeReference<List<Actividad>>() {};
+      actividades.clear();
+      actividades = mapper.readValue(inputStream, typeReference);
+      inputStream.close();
+      return actividades;
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return null;
+    }
+  }
+  
+  private boolean validarFecha(String pFecha) {
+    Date date = new Date();
+    SimpleDateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");
+    fecha.setTimeZone(TimeZone.getTimeZone("America/Costa_Rica"));
+    return pFecha.contains(fecha.format(date));
   }
 
 }
