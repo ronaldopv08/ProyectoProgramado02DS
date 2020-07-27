@@ -24,12 +24,17 @@ public class ControladorModuloAdministracion {
   @Context
   private ServletContext servletContext;
   
+  /**
+   * Método para retornar un html en formato String para reproducir en el sitio web
+   * @return html en formato String
+   */
   @GET  
   @Produces(MediaType.TEXT_HTML)  
   public String sayHtmlHello() {
     String base = servletContext.getRealPath("/WEB-INF/moduloAdministracion.html");
     try {
       File file = new File(base);
+      @SuppressWarnings("deprecation")
       String content = Files.toString(file,Charsets.UTF_8);
       return content;
     } catch (IOException e) {
@@ -39,6 +44,13 @@ public class ControladorModuloAdministracion {
     } 
   }
   
+  /**
+   * Método que envía la información de un archivo de bitácora seleccionado en formato String
+   * para ser presentado en el sitio web
+   * @param tipobitacora Tipo de bitacora seleccionado, formato String
+   * @param filtroconsulta Tipo de consulta seleccionada, formato String
+   * @return
+   */
   @POST  
   @Path("/consultarregistros")  
   public Response consultarRegistros(@FormParam("tipobitacora") String tipobitacora,

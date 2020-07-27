@@ -7,11 +7,20 @@ import logicadeinstanciacion.BitacoraFactory;
 import logicadenegocios.Actividad;
 import logicaderegistro.Bitacora;
 
+/**
+ * Clase para acceder a los servicios de registro de actividades del sistema
+ * @author Gabriel Cortés Mena
+ * @author Ronaldo Picado Vega
+ *
+ */
 public class ServicioBitacora {
   
   private List<Bitacora> bitacoras;
   private BitacoraFactory bitacoraFactory;
   
+  /**
+   * Método constructor de la clase
+   */
   public ServicioBitacora() {
     bitacoraFactory = new BitacoraFactory();
     bitacoras = new ArrayList<Bitacora>();
@@ -20,6 +29,10 @@ public class ServicioBitacora {
     agregarBitacora("BitacoraXML");
   }
   
+  /**
+   * Método para registrar una actividad en las diferentes bitacoras disponibles
+   * @param pDatos colección de Strings con información de un objeto de tipo Actividad
+   */
   public void registarActividad(List<String> pDatos) {
     Actividad nuevaActividad = new Actividad(pDatos.get(1), pDatos.get(2));
     for (Bitacora i: bitacoras) {
@@ -27,6 +40,18 @@ public class ServicioBitacora {
     }
   }
   
+  /**
+   * Método para obtener la información almacenada en un tipo de bitácora, aplicando
+   * un filtro de consulta proporcionado
+   * @param tipoBitacora Nombre del tipo de bitacora por consultar, formato String
+   * @param pFiltroConsulta Nombre del método que ejecuta la consulta, formato String
+   * @return String con la información obtenida
+   * @throws NoSuchMethodException
+   * @throws SecurityException
+   * @throws IllegalAccessException
+   * @throws IllegalArgumentException
+   * @throws InvocationTargetException
+   */
   public String consultarRegistros(String tipoBitacora, String pFiltroConsulta) 
       throws NoSuchMethodException, SecurityException, IllegalAccessException, 
       IllegalArgumentException, InvocationTargetException {

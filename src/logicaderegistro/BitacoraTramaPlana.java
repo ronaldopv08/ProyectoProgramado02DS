@@ -2,8 +2,6 @@ package logicaderegistro;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -13,12 +11,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.TimeZone;
-import com.opencsv.CSVReader;
 import logicadeinstanciacion.ServicioAlmacenamientoRemotoSingleton;
 import logicadenegocios.Actividad;
 
+/**
+ * Clase para acceder al archivo de la bitácora en formato de trama plana
+ * @author Gabriel Cortés Mena
+ * @author Ronaldo Picado Vega
+ *
+ */
 public class BitacoraTramaPlana extends Bitacora {
 
+  /**
+   * Método constructor de la clase
+   */
   public BitacoraTramaPlana() {
     servicio = ServicioAlmacenamientoRemotoSingleton.getInstance();
     this.rutaArchivo = servicio.descargarArchivo("bitacora.txt").getAbsolutePath();

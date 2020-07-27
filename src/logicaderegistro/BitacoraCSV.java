@@ -15,8 +15,17 @@ import com.opencsv.exceptions.CsvException;
 import logicadeinstanciacion.ServicioAlmacenamientoRemotoSingleton;
 import logicadenegocios.Actividad;
 
+/**
+ * Clase para acceder al archivo de la bitácora en formato CSV
+ * @author Gabriel Cortés Mena
+ * @author Ronaldo Picado Vega
+ *
+ */
 public class BitacoraCSV extends Bitacora {
 
+  /**
+   * Método constructor de la clase
+   */
   public BitacoraCSV() {
     servicio = ServicioAlmacenamientoRemotoSingleton.getInstance();
     this.rutaArchivo = servicio.descargarArchivo("bitacora.csv").getAbsolutePath();
@@ -107,6 +116,7 @@ public class BitacoraCSV extends Bitacora {
       try {
         CSVReader csvReader = new CSVReader(new FileReader(rutaArchivo));
         List<String[]> datos = csvReader.readAll();
+        csvReader.close();
         return datos;
       } catch (Exception e) {
         return null;
