@@ -1,7 +1,7 @@
 ---
 applications:
-- name: pruebita02ds
+- name: vodkajuniorscryptov2
   memory: 256M
-  host: pruebita02ds
+  host: vodkajuniorscryptov2
   domain: mybluemix.net
   buildpack: liberty-for-java

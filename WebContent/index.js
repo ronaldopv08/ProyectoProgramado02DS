@@ -20,8 +20,8 @@ class App extends React.Component {
 
 			var ctxStr = JSON.stringify(this.state.ctx);
 
-		fetch(`http://localhost:9080/ProyectoProgramado02DS/chatbot/chatservice/?conversationMsg=${encodeURIComponent(text)}&conversationCtx=${encodeURIComponent(ctxStr)}`)
-		//fetch(`https://pruebita02ds.mybluemix.net/chatbot/chatservice/?conversationMsg=${encodeURIComponent(text)}&conversationCtx=${encodeURIComponent(ctxStr)}`)
+		//fetch(`http://localhost:9080/ProyectoProgramado02DS/chatbot/chatservice/?conversationMsg=${encodeURIComponent(text)}&conversationCtx=${encodeURIComponent(ctxStr)}`)
+		fetch(`https://vodkajuniorscryptov2.mybluemix.net/chatbot/chatservice/?conversationMsg=${encodeURIComponent(text)}&conversationCtx=${encodeURIComponent(ctxStr)}`)
 		.then((response) => {
 			console.log(response);
 			return response.json();

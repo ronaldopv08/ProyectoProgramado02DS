@@ -37,7 +37,7 @@ public class Vigenere extends Sustitucion {
     }
     String textoDescifrado = "";
     for (String palabra : pTexto.split(" ")) {
-      textoDescifrado+=sustituirPalabra(palabra,27-Double.valueOf(clave)/10,
+      textoDescifrado += sustituirPalabra(palabra,27-Double.valueOf(clave)/10,
           26-Double.valueOf(clave)%10) + " ";
     }
     return textoDescifrado;
@@ -55,7 +55,7 @@ public class Vigenere extends Sustitucion {
       double segundoDesplazamiento){
     String nuevoTexto = "";
     for (int i=0;i<pTexto.length();i+=2) {
-      if(i+1>pTexto.length()) {
+      if(i+1>=pTexto.length()) {
         nuevoTexto += desplazarLetra(pTexto.charAt(i), primerDesplazamiento);
         break;
       }
