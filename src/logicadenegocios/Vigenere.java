@@ -55,7 +55,7 @@ public class Vigenere extends Sustitucion {
       double segundoDesplazamiento){
     String nuevoTexto = "";
     for (int i=0;i<pTexto.length();i+=2) {
-      if(i+1>pTexto.length()) {
+      if(i+1>=pTexto.length()) {
         nuevoTexto += desplazarLetra(pTexto.charAt(i), primerDesplazamiento);
         break;
       }

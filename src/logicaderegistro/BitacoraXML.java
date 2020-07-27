@@ -16,11 +16,19 @@ import logicadeinstanciacion.ServicioAlmacenamientoRemotoSingleton;
 import logicadenegocios.Actividad;
 import logicadenegocios.ListaActividadesXML;
 
+/**
+ * Clase para acceder al archivo de la bitácora en formato XML
+ * @author Gabriel Cortés Mena
+ * @author Ronaldo Picado Vega
+ *
+ */
 public class BitacoraXML extends Bitacora {
   
-  //@JacksonXmlElementWrapper(useWrapping = false)
   private ListaActividadesXML listaActividades;
   
+  /**
+   * Método constructor de la clase
+   */
   public BitacoraXML() {
     servicio = ServicioAlmacenamientoRemotoSingleton.getInstance();
     listaActividades = new ListaActividadesXML();

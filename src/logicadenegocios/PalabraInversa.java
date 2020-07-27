@@ -11,7 +11,9 @@ public class PalabraInversa extends Cifrado {
   /**
    * Método constructor de la clase, sin parámetros
    */
-  public PalabraInversa() {}
+  public PalabraInversa() {
+    
+  }
 
   @Override
   public String cifrar(String pTexto) {

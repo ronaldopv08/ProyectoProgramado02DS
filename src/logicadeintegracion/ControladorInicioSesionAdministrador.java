@@ -23,6 +23,10 @@ public class ControladorInicioSesionAdministrador {
   @Context
   private ServletContext servletContext;
 
+  /**
+   * Método para retornar un html en formato String para reproducir en el sitio web
+   * @return html en formato String
+   */
   @GET
   @Produces(MediaType.TEXT_HTML)
   public String sayHtmlHello() {   
@@ -38,6 +42,12 @@ public class ControladorInicioSesionAdministrador {
     }
   }
 
+  /**
+   * Método para enviar la información de inicio de sesión para un usuario administrador
+   * @param usuario String con la información del nombre de usuario
+   * @param contrasena String con la información de la contraseña
+   * @param servletResponse Objeto de tipo ServletResponse
+   */
   @POST
   @Produces(MediaType.TEXT_HTML)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
